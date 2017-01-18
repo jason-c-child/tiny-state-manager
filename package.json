@@ -1,0 +1,24 @@
+{
+  "name": "tiny-state-manager",
+  "version": "0.1.0",
+  "description": "A tiny state manager using eventemitter, for react and stuff",
+  "main": "appState.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jason-c-child/tiny-state-manager.git"
+  },
+  "keywords": [
+    "react",
+    "events",
+    "state"
+  ],
+  "author": "jason-c-child",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jason-c-child/tiny-state-manager/issues"
+  },
+  "homepage": "https://github.com/jason-c-child/tiny-state-manager#readme"
+}
