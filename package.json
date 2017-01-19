@@ -1,10 +1,11 @@
 {
   "name": "tiny-state-manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tiny state manager using eventemitter, for react and stuff",
-  "main": "appState.js",
+  "main": "dist/appState.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/jason-c-child/tiny-state-manager/issues"
   },
-  "homepage": "https://github.com/jason-c-child/tiny-state-manager#readme"
+  "homepage": "https://github.com/jason-c-child/tiny-state-manager#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-preset-env": "^1.1.8"
+  }
 }

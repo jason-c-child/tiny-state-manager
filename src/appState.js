@@ -24,3 +24,5 @@ const appState = seedState => {
     state
   }
 }
+
+export default appState
