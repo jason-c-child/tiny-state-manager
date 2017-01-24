@@ -4,7 +4,7 @@ Very easy to understand and pretty simple. In the past I found that redux was a 
 simple use cases I had. Concentrating all state mutating actions in one place made sense to me. When I use this I
 will typically attach a listener to handle stuff like API requests and what not.
 
-You can find a simple 'counter' example in the aptly named 'example' folder
+You can find a simple 'counter' example in the aptly named ['example' folder](https://github.com/jason-c-child/tiny-state-manager/tree/master/example)
 
 ###
 
