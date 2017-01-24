@@ -1,63 +1,37 @@
 
-```javascript
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-// import appState function
-import appState from 'tiny-state-manager';
-
-// create an empty 'seed state'
+This example is implemented in [App.js](https://github.com/jason-c-child/tiny-state-manager/blob/master/example/src/App.js) and 
+[actions.js](https://github.com/jason-c-child/tiny-state-manager/blob/master/example/src/actions.js) and not a particularly great example of
+ project architecture and abstraction...but it gets the point across.
+ 
+ One thing to keep on mind when using this method is that async events that can overwrite state will in fact do so :p
+ 
+ In my use-cases I tend to just be fetching data from some backend, typically in response to a user action (button click). I'll tend to
+ lock the UI components that could trigger async events while the action is pending, roughly equivalent to something like this
+ 
+ ```javascript
+ // ...in my state add a 'fetching' flag...
 const initState = {
-  count: 0
+    userData: {},
+    fetching: false
 }
 
-// create the instance
-const StateManager = appState(initState)
+// ...in my UI component...
+<button disabled={props.fetching} onClick={() => {
+    emitter.emit('update', {fetching: true})
+    emitter.emit('action', {type: 'fetchUser'})
+}}>
+    Fetch User Data
+</button>
 
-class App extends Component {
-  constructor (props) {
-    super(props);
-    // set the StateManager callback to update this component's state
-    StateManager.emitter.callback = x => this.setState(x);
-    this.state = StateManager.state;
-  }
-  render() {
-    let {count} = this.state;
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-        <Counter count={count} />  {/*pass state to our presentation component */}
-        </p>
-          <p>
-            <button onClick={() => StateManager.emitter.emit('update', {count: count+1})}>
-                +
-            </button> {/* use the StateManager's emitter to mutate state... */}
-            <MinusButton emitter={StateManager.emitter} count={count} /> {/* pass emitter and relevant state to another component */}
-          </p>
-      </div>
-    );
-  }
-}
-
-const Counter = props =>
-  <div>
-      Counter clicked {props.count} times!
-  </div>
-
-const MinusButton = props =>
-    <button onClick={() => props.emitter.emit('update', {count: props.count -1})}>
-        -
-    </button>
-
-export default App;
-
+// ...in my action listener...
+StateManager.emitter.on('action', function(x) {
+    switch(x.type) {
+        case 'fetchUser':
+            fetch('http://cool.api.io')
+            .then(x => this.emit('update', {userDate: x, fetching: false}))       
+        break
+    }
+})
 ```
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
