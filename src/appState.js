@@ -3,7 +3,12 @@ import EventEmitter from 'events'
 const appState = seedState => {
   const emitter = new EventEmitter()
   let state = seedState || {}
- 
+
+
+  emitter.getState = function () {
+      return {...state}
+  }
+
   emitter.on('set', function(payload) {
       state = payload
       this.callback(state)
