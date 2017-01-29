@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 // import appState function
-import appState from 'tiny-state-manager';
+import appState from '../../dist/appState';
 
 // import 'actions'...fetching from json api
 import {fetchUsers, fetchTodos, appendRandomItem} from './actions'
@@ -30,6 +30,7 @@ StateManager.emitter.on('action', function(x) {
               fetchTodos(this)
               break
           case 'appendRandomItem':
+              console.log('---->', this.getState())
               appendRandomItem(this, x.payload)
               break
           default:
