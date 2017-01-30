@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 // import appState function
-import appState from '../../dist/appState';
+import appState from 'tiny-state-manager'
 
 // import 'actions'...fetching from json api
 import {fetchUsers, fetchTodos, appendRandomItem} from './actions'

@@ -134,4 +134,16 @@ and now you can just emit this from wherever you have a handle on the emitter
 
 ```
 
+A function called `getState()` was added to the emitter object to allow you to get a copy of the current state
+from a stateless component that may not have all context cleanly passed via props (like perhaps a form). Use it like:
+
+```javascript
+// ...stuff...
+<button onClick={() => {
+  let {count} = props.emitter.getState()
+  props.emitter.emit('update', {count: ++count})
+}}>+1</button>
+
+```
+
 Nothing fancy, no middlewares, etc.
