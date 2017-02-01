@@ -34,6 +34,11 @@ StateManager.emitter.on('action', function(x) {
 })
 ```
 
+The example has been updated to include an example using async/await and issuing discrete updates to the state; setting the
+`fetching` flag to `true` then calling one of our 'action' functions (which return a promise...so we can await on it)...then
+again after to set it `false`. Yay modern js ;)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
  
  

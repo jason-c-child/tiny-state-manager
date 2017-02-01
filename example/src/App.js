@@ -12,7 +12,8 @@ const initState = {
     count: 0,
     users: [],
     todos: [],
-    itemList: []
+    itemList: [],
+    fetching: false
 };
 
 // create the instance
@@ -21,17 +22,22 @@ const StateManager = appState(initState)
 // create an event handler for these 'actions'...
 // each one has the emitter context passed in since
 // all state mutation happens within StateManager
-StateManager.emitter.on('action', function(x) {
+StateManager.emitter.on('action', async function(x) {
       switch (x.type) {
           case 'fetchUsers':
-              fetchUsers(this);
+              await Promise.resolve(this.emit('update', {fetching: true}));
+              await fetchUsers(this);
+              await Promise.resolve(this.emit('update', {fetching: false}));
               break
           case 'fetchTodos':
-              fetchTodos(this)
+              await Promise.resolve(this.emit('update', {fetching: true}));
+              await fetchTodos(this);
+              await Promise.resolve(this.emit('update', {fetching: false}));
               break
           case 'appendRandomItem':
-              console.log('---->', this.getState())
-              appendRandomItem(this, x.payload)
+              await Promise.resolve(this.emit('update', {fetching: true}));
+              await appendRandomItem(this, x.payload)
+              await Promise.resolve(this.emit('update', {fetching: false}));
               break
           default:
               break
@@ -60,22 +66,22 @@ class App extends Component {
         <Counter count={count} />  {/*pass state to our presentation component */}
 
           <p>
-            <button onClick={() => StateManager.emitter.emit('update', {count: count+1})}>
+            <button disabled={this.state.fetching} onClick={() => StateManager.emitter.emit('update', {count: count+1})}>
                 +
             </button> {/* use the StateManager's emitter to mutate state... */}
             <MinusButton emitter={StateManager.emitter} count={count} /> {/* pass emitter and relevant state to another component */}
           </p>
           <p>
-              <button onClick={() => StateManager.emitter.emit('action', {type: 'fetchUsers'})}>
+              <button disabled={this.state.fetching} onClick={() => StateManager.emitter.emit('action', {type: 'fetchUsers'})}>
                   fetchUsers
               </button>
-              <button onClick={() => StateManager.emitter.emit('action', {type: 'fetchTodos'})}>
+              <button disabled={this.state.fetching} onClick={() => StateManager.emitter.emit('action', {type: 'fetchTodos'})}>
                   fetchTodos
               </button>
-              <button onClick={() => StateManager.emitter.emit('action', {type: 'appendRandomItem', payload: itemList})}>
+              <button disabled={this.state.fetching} onClick={() => StateManager.emitter.emit('action', {type: 'appendRandomItem', payload: itemList})}>
                   appendRandomItem
               </button>
-              <button onClick={() => StateManager.emitter.emit('reset')}>
+              <button disabled={this.state.fetching} onClick={() => StateManager.emitter.emit('reset')}>
                   reset
               </button>
           </p>
