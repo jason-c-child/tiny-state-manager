@@ -1,6 +1,6 @@
 {
   "name": "tiny-state-manager",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "A tiny state manager using eventemitter, for react and stuff",
   "main": "dist/appState.js",
   "scripts": {

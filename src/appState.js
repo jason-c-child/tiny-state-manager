@@ -4,18 +4,17 @@ const appState = seedState => {
   const emitter = new EventEmitter()
   let state = seedState || {}
 
-
   emitter.getState = function () {
       return {...state}
   }
 
   emitter.on('set', function(payload) {
-      state = payload
+      state = {...payload}
       this.callback(state)
   })
   
   emitter.on('reset', function() {
-      seedState && (state = seedState)
+      seedState && (state = {...seedState})
       this.callback(state)
   })
   
