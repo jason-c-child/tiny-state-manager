@@ -21,12 +21,12 @@ var appState = function appState(seedState) {
     };
 
     emitter.on('set', function (payload) {
-        state = payload;
+        state = _extends({}, payload);
         this.callback(state);
     });
 
     emitter.on('reset', function () {
-        seedState && (state = seedState);
+        seedState && (state = _extends({}, seedState));
         this.callback(state);
     });
 

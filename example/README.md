@@ -24,13 +24,18 @@ const initState = {
 </button>
 
 // ...in my action listener...
-StateManager.emitter.on('action', function(x) {
-    switch(x.type) {
-        case 'fetchUser':
-            fetch('http://cool.api.io')
-            .then(x => this.emit('update', {userDate: x, fetching: false}))       
-        break
+StateManager.emitter.on('action', async function(x) {
+    try {
+      switch(x.type) {
+              case 'fetchUser':
+                  const res = await fetch('http://cool.api.io')
+                  .then(x => this.emit('update', {userDate: x, fetching: false}))       
+              break
+          }
+    } catch (e) {
+      console.log('err--->',e.stack)
     }
+    
 })
 ```
 

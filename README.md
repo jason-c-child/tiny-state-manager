@@ -96,7 +96,7 @@ export default = props =>
     </div>
     <div>
       Change Name: 
-        <input type="text" onChange={x => props.emitter.emit('update', {userObject: {...props.userObject, name: x})}/>
+        <input type="text" onChange={x => props.emitter.emit('update', {userObject: {...props.userObject, name: x.target.value})}/>
     </div>
   </div>
 ```
