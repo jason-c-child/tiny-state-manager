@@ -29,7 +29,8 @@ StateManager.emitter.on('action', async function(x) {
       switch(x.type) {
               case 'fetchUser':
                   const res = await fetch('http://cool.api.io')
-                  .then(x => this.emit('update', {userDate: x, fetching: false}))       
+                  .then(x => x.json())
+                  .then(x => this.emit('update', {userData: x, fetching: false}))       
               break
           }
     } catch (e) {
