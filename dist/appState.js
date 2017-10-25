@@ -22,17 +22,17 @@ var appState = function appState(seedState) {
 
     emitter.on('set', function (payload) {
         state = _extends({}, payload);
-        this.callback(state);
+        this.callback && this.callback(state);
     });
 
     emitter.on('reset', function () {
         seedState && (state = _extends({}, seedState));
-        this.callback(state);
+        this.callback && this.callback(state);
     });
 
     emitter.on('update', function (payload) {
         state = _extends({}, state, payload);
-        this.callback(state);
+        this.callback && this.callback(state);
     });
 
     return {
