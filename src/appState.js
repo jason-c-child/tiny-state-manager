@@ -10,17 +10,17 @@ const appState = seedState => {
 
   emitter.on('set', function(payload) {
       state = {...payload}
-      this.callback(state)
+      this.callback && this.callback(state)
   })
   
   emitter.on('reset', function() {
       seedState && (state = {...seedState})
-      this.callback(state)
+      this.callback && this.callback(state)
   })
   
   emitter.on('update', function(payload) {
       state = {...state, ...payload}
-      this.callback(state)
+      this.callback && this.callback(state)
   })
   
   return {
